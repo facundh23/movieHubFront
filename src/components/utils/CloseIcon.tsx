@@ -5,8 +5,8 @@ function IconCloseOutline(props: React.SVGProps<SVGSVGElement>) {
     <svg
       viewBox="0 0 512 512"
       fill="currentColor"
-      height="2.5rem"
-      width="2.5rem"
+      height="2rem"
+      width="2rem"
       {...props}
     >
       <path
