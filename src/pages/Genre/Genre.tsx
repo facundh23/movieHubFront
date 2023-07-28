@@ -1,11 +1,12 @@
+import Genre from "../../components/Genre/Genre"
 
 
 
 
-const Genre = () => {
+const GenrePage = () => {
   return (
-    <h1>Genre</h1>
+    <Genre />
   )
 }
 
-export default Genre
+export default GenrePage
