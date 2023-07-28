@@ -6,12 +6,13 @@ const Modal:FC = () => {
        defaultValues:{
          title:'',
          description:'',
+         genre:'',
          img:''
        }
 
     })
 
-    const onSubmit = data => {
+    const onSubmit = (data:{} ):void=> {
         console.log(data);
         reset();
     }
@@ -43,7 +44,18 @@ const Modal:FC = () => {
 
                     }
                 })}/>
-                {errors.description && <p className='text-red-500 font-bold'>{errors?.description?.message}</p>}
+                <input placeholder='Movie Genre' className='mb-2 py-1 rounded-md border-2 border-black px-2' {...register("genre", {
+                    required:true, minLength:{
+                        value:5,
+                        message:"Minumun length is 4",
+                    },
+                    maxLength:{
+                        value:12,
+                        message:"Maximum length is 6"
+
+                    }
+                })}/>
+                {errors.genre && <p className='text-red-500 font-bold'>{errors?.genre?.message}</p>}
                 <input type='file' className='mb-2 py-1 rounded-md' {...register("img", {
                     required:true,
                 })}/>

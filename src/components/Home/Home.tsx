@@ -13,7 +13,7 @@ const Home = () => {
     }
 
   return (
-      <main className="w-100 h-screen ">
+      <main className="w-100 h-full ">
       <button className="mt-2 ml-[10%] font-bold bg-violet-600/50 p-2 rounded-md md:w-[15%] " onClick={handleShow}>{show ? 'Close Modal' : 'Show Modal'}</button>
         
         {
