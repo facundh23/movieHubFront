@@ -7,13 +7,13 @@ const Modal:FC = () => {
          img:'',
          title:'',
          genre:'',
-         score:0,
-         year:2000,
+         score:'',
+         year:'',
        }
 
     })
 
-    const onSubmit = (data:{} ):void=> {
+    const onSubmit = (data :{} ):void=> {
         console.log(data);
         reset();
     }
@@ -48,7 +48,7 @@ const Modal:FC = () => {
 
                     }
                 })}/>
-                <input placeholder='Movie Genre' className='mb-2 py-1 rounded-md border-2 border-black px-2' {...register("score", {
+                <input placeholder='Score' className='mb-2 py-1 rounded-md border-2 border-black px-2' {...register("score", {
                     required:true, minLength:{
                         value:5,
                         message:"Minumun length is 4",
@@ -63,7 +63,7 @@ const Modal:FC = () => {
                 <input type='file' className='mb-2 py-1 rounded-md' {...register("img", {
                     required:true,
                 })}/>
-                {errors.description && <p className='text-red-500'>{errors?.img?.message}</p>}
+                {errors.year && <p className='text-red-500'>{errors?.img?.message}</p>}
                 <button className='bg-violet-600 text-white mb-2 w-36 self-center p-1 rounded-md hover:bg-violet-800 transition-all duration-500' type='submit' disabled={false}>
                     Upload
                 </button>
