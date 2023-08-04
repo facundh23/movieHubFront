@@ -2,10 +2,11 @@ import zapatilla from '../../assets/images/zapatilla3.jpg'
 const CardMovie = () => {
   return (
     <div>
-        <section className="w-65 h-70 mt-5 flex flex-col gap-2 items-center border-2 border-r-violet-400 border-y-black">
+        <section className="w-65 h-70 mt-5 flex flex-col gap-2 items-center border-2 border-r-violet-400 border-y-black p-2">
          
                 <h4 className='font-bold'>Title</h4>
                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus </p>
+                <p> Released: 2000 </p>
                 <span className='text-red-400 font-bold'>Genre</span>
                  <img id="img"
                  className="w-full h-full object-cover" src={zapatilla}/>

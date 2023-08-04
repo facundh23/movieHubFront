@@ -4,10 +4,11 @@ import {useForm} from 'react-hook-form';
 const Modal:FC = () => {
     const { register, handleSubmit, formState:{errors}, reset } = useForm({
        defaultValues:{
+         img:'',
          title:'',
-         description:'',
          genre:'',
-         img:''
+         score:0,
+         year:2000,
        }
 
     })
@@ -32,19 +33,22 @@ const Modal:FC = () => {
 
                     }
                 })}/>
-                {errors.title && <p className='text-red-500 font-bold mb-4'>{errors?.description?.message}</p>}
-                <input placeholder='Movie Description' className='mb-2 py-1 rounded-md border-2 border-black px-2' {...register("description", {
+                {errors.title && <p className='text-red-500 font-bold mb-4'>{errors?.year?.message}</p>}
+                <input placeholder='Released' className='mb-2 py-1 rounded-md border-2 border-black px-2' {...register("year", {
+                    required:true }
+                )}/>
+                <input placeholder='Movie Genre' className='mb-2 py-1 rounded-md border-2 border-black px-2' {...register("genre", {
                     required:true, minLength:{
                         value:5,
-                        message:"Minumun length is 7",
+                        message:"Minumun length is 4",
                     },
                     maxLength:{
                         value:12,
-                        message:"Maximum length is 12"
+                        message:"Maximum length is 6"
 
                     }
                 })}/>
-                <input placeholder='Movie Genre' className='mb-2 py-1 rounded-md border-2 border-black px-2' {...register("genre", {
+                <input placeholder='Movie Genre' className='mb-2 py-1 rounded-md border-2 border-black px-2' {...register("score", {
                     required:true, minLength:{
                         value:5,
                         message:"Minumun length is 4",
