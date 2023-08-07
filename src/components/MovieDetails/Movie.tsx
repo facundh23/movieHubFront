@@ -12,7 +12,7 @@ const Movie = () => {
            <img
             id='imgMovie'
             src={zapatilla}
-            className="w-1/3 h-full object-cover"
+            className="w-1/3 h-full object-cover rounded-xl border-r-2 border-l-4"
            />
 
             <div className='flex flex-col justify-center items-center px-2'>
