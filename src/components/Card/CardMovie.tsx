@@ -1,4 +1,5 @@
 import zapatilla from '../../assets/images/zapatilla3.jpg'
+
 const CardMovie = () => {
   return (
     <div>

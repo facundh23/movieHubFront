@@ -2,7 +2,8 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Layout from "../components/Layout/Layout";
 import HomePage from "../pages/Home/HomePage";
 import Profile from "../pages/Profile/Profile";
-import GenrePage from "../pages/Genre/Genre";
+
+import MovieDetailsPage from "../pages/Movie/MovieDetailsPage";
 
 const Router = () => {
     return (
@@ -10,7 +11,7 @@ const Router = () => {
             <Routes>
                 <Route path="/" element={<Layout />}>
                     <Route index element={<HomePage />}/>
-                    <Route path="/genre" element={<GenrePage />}/>
+                    <Route path="/genre" element={<MovieDetailsPage />}/>
                     <Route path="/profile" element={<Profile />}/>
                 </Route>
             </Routes>

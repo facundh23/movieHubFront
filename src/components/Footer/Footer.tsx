@@ -12,7 +12,6 @@ const Footer = () => {
             <section>
                 <div className='flex justify-center gap-2 text-violet-600 text-xl'>
                     <Link to="/">Home</Link>
-                    <Link to="/genre">Genre</Link>
                     <Link to="/profile">Profile</Link>
                 </div>
                 <div className='flex justify-center gap-3 text-violet-600 text-2xl'>

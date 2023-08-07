@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-types */
 import {FC} from 'react';
 import {useForm} from 'react-hook-form';
 
@@ -64,7 +65,7 @@ const Modal:FC = () => {
                     required:true,
                 })}/>
                 {errors.year && <p className='text-red-500'>{errors?.img?.message}</p>}
-                <button className='bg-violet-600 text-white mb-2 w-36 self-center p-1 rounded-md hover:bg-violet-800 transition-all duration-500' type='submit' disabled={false}>
+                <button className='bg-violet-600 text-white mb-2 w-36 self-center p-1 rounded-md hover:bg-violet-800 transition-all duration-700' type='submit' disabled={false}>
                     Upload
                 </button>
         </form>
