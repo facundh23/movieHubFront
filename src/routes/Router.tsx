@@ -1,12 +1,14 @@
+import { Suspense, lazy } from 'react'
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Layout from "../components/Layout/Layout";
-import HomePage from "../pages/Home/HomePage";
+// import HomePage from "../pages/Home/HomePage";
 // import MovieDetailsPage from "../pages/Movie/MovieDetailsPage";
 import LoginPage from "../pages/Login/LoginPage";
 import MovieDetailsPage from "../pages/Movie/MovieDetailsPage";
+import HomeSkeleton from '../assets/skeleton/homeSkeleton.tsx';
 
 
-
+const LazyHomePage = lazy(() => import("../pages/Home/HomePage.tsx"))
 
 const Router = () => {
 
@@ -23,7 +25,7 @@ const Router = () => {
                 }
                 >
                     <Route index element={
-                        <HomePage />
+                        <Suspense fallback={<HomeSkeleton />}><LazyHomePage /></Suspense>
 
                     }
                     />
