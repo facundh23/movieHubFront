@@ -1,26 +1,47 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Layout from "../components/Layout/Layout";
 import HomePage from "../pages/Home/HomePage";
-import Profile from "../pages/Profile/Profile";
-
+// import MovieDetailsPage from "../pages/Movie/MovieDetailsPage";
+import LoginPage from "../pages/Login/LoginPage";
 import MovieDetailsPage from "../pages/Movie/MovieDetailsPage";
 
+
+
+
 const Router = () => {
+
+
+
+
     return (
         <BrowserRouter>
             <Routes>
-                <Route path="/" element={<Layout />}>
-                    <Route index element={<HomePage />}/>
-                    <Route path="/genre" element={<MovieDetailsPage />}/>
-                    <Route path="/profile" element={<Profile />}/>
+                <Route path="/" element={<LoginPage />} />
+                <Route path="/home" element={
+
+                    <Layout />
+                }
+                >
+                    <Route index element={
+                        <HomePage />
+
+                    }
+                    />
+                    <Route path="/home/:movieId" element={
+
+
+                        <MovieDetailsPage />
+                    }
+                    />
+
                 </Route>
             </Routes>
-        
-        
-        
-        
+
+
+
+
         </BrowserRouter>
     )
-} 
+}
 
 export default Router

@@ -1,11 +1,12 @@
-import Genre from "../../components/MovieDetails/Movie"
+import Movie from "../../components/MovieDetails/Movie"
+
 
 
 
 
 const MovieDetailsPage = () => {
   return (
-    <Genre />
+    <Movie />
   )
 }
 
