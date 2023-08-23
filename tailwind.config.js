@@ -4,7 +4,8 @@ export default {
   theme: {
     extend: {
       backgroundImage: {
-        "hero-image": 'url("./src/assets/images/movie.jpg")',
+        "hero-image":
+          'url("./src/assets/images/los-mejores-posters-de-películas-1024x640.jpg")',
       },
     },
   },

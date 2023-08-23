@@ -1,22 +1,38 @@
-// import axios from "axios";
-
-export const publicRequest = async () => {
-  const { VITE_API_URL: url } = import.meta.env;
-  const response = await fetch(`${url}/public`);
-  console.log(response);
-  const data = await response.json();
-  console.log(data);
-};
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const protectedRequest = async (getToken: any) => {
+
+export const postUser = async (data: any, getToken: any) => {
   const { VITE_API_URL: url } = import.meta.env;
   const token = await getToken();
   console.log(token);
-  const response = await fetch(`${url}/protected`, {
+  await fetch(`${url}/users`, {
+    method: "POST",
     headers: {
-      authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
     },
+    body: JSON.stringify(data),
   });
-  const data = await response.json();
-  console.log(data);
+};
+export const createMovie = async (data: any, getToken: any) => {
+  const { VITE_API_URL: url } = import.meta.env;
+  const token = await getToken();
+  console.log(token);
+  await fetch(`${url}/home`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(data),
+  });
+};
+
+export const getGenres = async (url: string) => {
+  try {
+    const genres = await fetch(url);
+    const data = await genres.json();
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
 };

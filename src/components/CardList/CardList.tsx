@@ -1,8 +1,8 @@
 
 import { FC } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
-import CardMovie from '../Card/CardMovie';
 import { Link } from 'react-router-dom';
+import CardMovie from '../Card/CardMovie';
 
 
 
