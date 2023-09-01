@@ -1,11 +1,12 @@
 /* eslint-disable @typescript-eslint/ban-types */
-import { FC, ReactNode, ChangeEvent, useEffect, useState } from 'react';
+import { FC, ReactNode, ChangeEvent } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import { createMovie, getAllMovies, getMoviesByEmail } from '../../api/request.service';
+import { updateMovie } from '../../api/request.service';
 import Swal from 'sweetalert2'
 import { useGenres } from '../../context/GenresProvider';
+import { useMovies } from '../../context/MovieProvider';
 
 interface ModalProps {
     genres: string[]
@@ -26,22 +27,33 @@ type GenreItemsProps = {
 }
 
 
-const Modal: FC<ModalProps> = () => {
-    const { register, handleSubmit, formState: { errors }, reset, setValue } = useForm();
+const EditModal: FC<ModalProps> = () => {
 
+    const { movies } = useMovies()
+    const { movieId } = useParams();
+    const selectedMovie = movieId ? movies?.find((movie: { id: string; }) => movie.id === movieId) : undefined;
     const { isAuthenticated, getAccessTokenSilently } = useAuth0();
     const navigate = useNavigate();
-    const { userId } = useParams();
+    const { register, handleSubmit, formState: { errors }, reset, setValue } = useForm({
+        defaultValues: {
+            title: selectedMovie.title,
+            year: selectedMovie.year,
+            score: selectedMovie.score,
+            poster_image: selectedMovie.poster_image,
+            genres: selectedMovie.genres
+        }
+    });
     const { VITE_API_URL: url } = import.meta.env
-    const movieUrl = `${url}/home/movies/${userId}`
+
+    const editMovie = `${url}/home/movies/edit/${movieId}`
     const { genres } = useGenres();
 
-
+    if (!selectedMovie) return
 
 
     const onSubmit = async (data: object): Promise<void> => {
 
-        createMovie(movieUrl, data, getAccessTokenSilently)
+        updateMovie(editMovie, data, getAccessTokenSilently)
         const Toast = Swal.mixin({
             toast: true,
             position: 'top-end',
@@ -72,7 +84,7 @@ const Modal: FC<ModalProps> = () => {
                 isAuthenticated ?
 
                     <form className='w-[50%] mx-auto border-x-violet-500 border-y-black border-4 flex flex-col p-5 mt-[10%] gap-2 md:w-[70%] md:mx-auto transition-all duration-500' onSubmit={handleSubmit(onSubmit)}>
-                        <h5 className='text-center mb-2'>Upload Your Movie</h5>
+                        <h5 className='text-center mb-2'>Edit Your Movie</h5>
                         <input placeholder='Movie Title' className='mb-4 p-2 rounded-md border-2 border-black ' {...register("title", {
                             required: {
                                 value: true,
@@ -148,7 +160,7 @@ const Modal: FC<ModalProps> = () => {
                         {errors.files && <p className='text-red-500 block'>{errors?.files?.message?.toString()}</p>}
 
                         <button className='bg-violet-600 text-white mb-2 w-36 self-center p-1 rounded-md hover:bg-violet-800 transition-all duration-700' type='submit' disabled={false}>
-                            Upload
+                            Edit
                         </button>
                     </form >
 
@@ -162,5 +174,5 @@ const Modal: FC<ModalProps> = () => {
     )
 }
 
-export default Modal
+export default EditModal
 

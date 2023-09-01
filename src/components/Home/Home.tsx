@@ -1,23 +1,22 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
-import Modal from "../Modal/Modal"
 import CardList from "../CardList/CardList"
-import { postUser } from "../../api/request.service";
+import { postUser, getUserId } from '../../api/request.service';
 import Spinner from "../utils/Spinner/Spiner";
+import { Link } from "react-router-dom";
 
+import { useUser } from '../../context/UserProvider';
 
-
-export type ContextProps = {
-  children: React.ReactNode,
-  handleShow: () => void
-}
 
 const Home = () => {
+  const { user: userContext } = useUser();
 
-  const [show, setShow] = useState<boolean>(false);
+  const [userId, setUserId] = useState(userContext);
   const { isLoading, getAccessTokenSilently, user } = useAuth0();
 
+  const currentUser = user?.email;
 
+  const { VITE_API_URL: url } = import.meta.env
 
   useEffect(() => {
     if (user) {
@@ -27,23 +26,25 @@ const Home = () => {
         console.log(error);
       }
     }
-  }, [getAccessTokenSilently, user])
+  }, [getAccessTokenSilently, user, url])
 
 
-  const handleShow = (): void => {
-    setShow(!show);
-  }
+  useEffect(() => {
+    const fetchUserId = async () => {
+      const response = await getUserId(userContext, currentUser);
+      setUserId(response)
+    }
+    fetchUserId()
+  }, [url, currentUser])
+
+
 
 
   return (
-    <main className="w-100 h-full ">
+    <main className="w-[100%] h-full p-6">
 
-      <button className="mt-2 ml-[10%] font-bold bg-violet-600/50 p-2 rounded-md md:w-[15%] transition-all duration-700 " onClick={handleShow}>{show ? 'Close Modal' : 'Create Movie'}</button>
-      {
-        show ? <Modal /> : isLoading ? <Spinner /> : <CardList />
-      }
-
-
+      <Link className="mt-4 ml-[10%] font-bold bg-violet-600/50 p-2 rounded-md md:w-[15%] transition-all duration-700 " to={`/home/movies/${userId}`} >Create a Movie</Link>
+      {isLoading ? <Spinner /> : <CardList id={''} title={''} year={0} score={0} poster_image={''} genres={[]} />}
 
     </main>
 
