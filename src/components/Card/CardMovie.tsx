@@ -48,7 +48,7 @@ const CardMovie: FC<CardProps> = ({ ...props }) => {
   const scoreStar = stars(score);
 
   return (
-    <div className='p-2 border-2 border-r-violet-400 border-y-black'>
+    <Link to={`/home/movies/movie/${id}`} ><div className='p-2 border-2 border-r-violet-400 border-y-black'>
       <section className="w-[80%] h-400 mx-auto flex flex-col gap-5 items-center  justify-center">
 
 
@@ -68,13 +68,14 @@ const CardMovie: FC<CardProps> = ({ ...props }) => {
           className="h-[60%] w-[60%]  object-cover" src={poster_image} />
 
 
-        {isAuthenticated ? <div className='flex justify-between w-full'> <Link to={`/home/movies/edit/${id}`} className='bg-blue-400 p-2  w-[30%] text-center rounded-md'>Edit</Link> <Link to={`/home/movies/movie/${id}`} className='bg-violet-400 p-2 w-[30%] text-center rounded-md'>Go to details</Link></div> : <Link to="/" className='bg-violet-400 p-2'>Please Log in</Link>}
+        {isAuthenticated ? <Link to={`/home/movies/edit/${id}`} className='bg-blue-400 p-2  w-[100%] text-center rounded-md'>Edit</Link> : <Link to="/" className='bg-violet-400 p-2'>Please Log in</Link>}
 
         {
           <p key={score}>{scoreStar}</p>
         }
       </section>
     </div>
+    </Link>
   )
 }
 
