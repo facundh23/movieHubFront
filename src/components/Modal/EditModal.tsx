@@ -3,10 +3,10 @@ import { FC, ReactNode, ChangeEvent } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import { updateMovie } from '../../api/request.service';
 import Swal from 'sweetalert2'
 import { useGenres } from '../../context/GenresProvider';
 import { useMovies } from '../../context/MovieProvider';
+
 
 interface ModalProps {
     genres: string[]
@@ -36,11 +36,11 @@ const EditModal: FC<ModalProps> = () => {
     const navigate = useNavigate();
     const { register, handleSubmit, formState: { errors }, reset, setValue } = useForm({
         defaultValues: {
-            title: selectedMovie.title,
-            year: selectedMovie.year,
-            score: selectedMovie.score,
-            poster_image: selectedMovie.poster_image,
-            genres: selectedMovie.genres
+            title: selectedMovie?.title,
+            year: selectedMovie?.year,
+            score: selectedMovie?.score,
+            poster_image: selectedMovie?.poster_image,
+            genres: selectedMovie?.genres
         }
     });
     const { VITE_API_URL: url } = import.meta.env
@@ -51,7 +51,7 @@ const EditModal: FC<ModalProps> = () => {
     if (!selectedMovie) return
 
 
-    const onSubmit = async (data: object): Promise<void> => {
+    const onSubmit = async (data: any): Promise<void> => {
 
         handleUpdateMovie(`${url}/home/movies/edit/${movieId}`, data, getAccessTokenSilently)
         const Toast = Swal.mixin({

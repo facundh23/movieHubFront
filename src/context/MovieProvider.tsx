@@ -1,6 +1,6 @@
 import { useContext, createContext, FC, ReactNode, useState } from 'react';
 import Swal from 'sweetalert2';
-import { deleteMovie, getAllMovies, getMoviesByEmail, getMoviesById, updateMovie } from '../api';
+import { deleteMovie, getAllMovies, getMoviesById, updateMovie } from '../api';
 import { GetTokenSilentlyVerboseResponse } from '@auth0/auth0-spa-js';
 
 
@@ -26,9 +26,9 @@ type MovieProps = {
     moviesById: MovieItemsProps[] | undefined
     setMoviesById: React.Dispatch<React.SetStateAction<MovieItemsProps[] | undefined>>
     fetchMovies: () => Promise<void>
-    handleGetMoviesById: (url: string, getToken: () => Promise<GetTokenSilentlyVerboseResponse | undefined>) => Promise<void>
-    handleUpdateMovie: (url: string, data: MovieItemsProps, getToken: () => Promise<GetTokenSilentlyVerboseResponse | undefined>) => Promise<void>
-    handleDeleteMovieById: (url: string, getToken: () => Promise<GetTokenSilentlyVerboseResponse | undefined>) => Promise<void>;
+    handleGetMoviesById: (url: string, getToken: any) => Promise<void>
+    handleUpdateMovie: (url: string, data: MovieItemsProps, getToken: any) => Promise<void>
+    handleDeleteMovieById: (url: string, getToken: any) => Promise<void>
 
 }
 const MovieContext = createContext<MovieProps>({} as MovieProps);
@@ -53,7 +53,7 @@ export const MoviesProvider: FC<MovieProps> = ({ children }) => {
 
 
 
-    const handleDeleteMovieById = async (url: string, getToken: () => Promise<GetTokenSilentlyVerboseResponse | undefined>) => {
+    const handleDeleteMovieById = async (url: string, getToken: any) => {
         await deleteMovie(url, getToken)
 
         const Toast = Swal.mixin({
@@ -74,12 +74,12 @@ export const MoviesProvider: FC<MovieProps> = ({ children }) => {
         })
     }
 
-    const handleUpdateMovie = async (url: string, data: MovieItemsProps, getToken: () => Promise<GetTokenSilentlyVerboseResponse | undefined>) => {
+    const handleUpdateMovie = async (url: string, data: any, getToken: any) => {
         await updateMovie(url, data, getToken);
     }
 
 
-    const handleGetMoviesById = async (url: string, getToken: () => Promise<GetTokenSilentlyVerboseResponse | undefined>) => {
+    const handleGetMoviesById = async (url: string, getToken: any) => {
         const response = await getMoviesById(url, getToken);
         const data = await response;
         setMoviesById(data)
