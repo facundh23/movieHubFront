@@ -45,7 +45,7 @@ const CardMovie: FC<CardProps> = ({ ...props }) => {
         return '⭐⭐⭐⭐'
         break;
       case 5:
-        return '⭐⭐⭐⭐'
+        return '⭐⭐⭐⭐⭐'
         break;
       default:
         break;
