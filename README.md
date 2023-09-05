@@ -58,10 +58,10 @@ layers to your ./src/index.css file.
 2) ```npm i morgan npm i --save-dev @types/morgan```
 3) ```npm i mongoose @types/mongoose```
 4) ```npm install prisma --save-dev```
-    # Inicializar Prisma : ```npx prisma init```
+5)  Inicializar Prisma : ```npx prisma init```
 
 ## Initialize project and start up server in frontend and backend
-```npm run dev```:globe_with_meridians:
+```npm run dev``` :globe_with_meridians:
 
 ### The project is based on the idea of a movie blog to which the user can create their own movies and give them a rating. The user authentication was developed with atuh0. 
 
