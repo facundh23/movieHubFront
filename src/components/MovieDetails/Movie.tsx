@@ -1,5 +1,5 @@
 import { Link, useNavigate, useParams } from 'react-router-dom'
-import { Auth0ContextInterface, GetTokenSilentlyOptions, useAuth0 } from '@auth0/auth0-react'
+import { Auth0ContextInterface, useAuth0 } from '@auth0/auth0-react'
 import Spinner from '../utils/Spinner/Spiner';
 import { useMovies } from '../../context/MovieProvider';
 import { useEffect } from 'react';
@@ -38,10 +38,8 @@ const Movie = () => {
 
   const handleDeleteMovie = () => {
     handleDeleteMovieById(`${url}/home/movies/${movieId}`, getAccessTokenSilently)
-    console.log(typeof getAccessTokenSilently)
     setTimeout(() => {
       navigate('/home')
-
     }, 3000)
   }
 
