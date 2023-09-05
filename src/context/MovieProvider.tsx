@@ -1,6 +1,6 @@
 import { useContext, createContext, FC, ReactNode, useState } from 'react';
 import Swal from 'sweetalert2';
-import { deleteMovie, getAllMovies, getMoviesByEmail, updateMovie } from '../api';
+import { deleteMovie, getAllMovies, getMoviesByEmail, getMoviesById, updateMovie } from '../api';
 import { GetTokenSilentlyVerboseResponse } from '@auth0/auth0-spa-js';
 
 
@@ -80,9 +80,8 @@ export const MoviesProvider: FC<MovieProps> = ({ children }) => {
 
 
     const handleGetMoviesById = async (url: string, getToken: () => Promise<GetTokenSilentlyVerboseResponse | undefined>) => {
-        const response = await getMoviesByEmail(url, getToken);
+        const response = await getMoviesById(url, getToken);
         const data = await response;
-        console.log(data)
         setMoviesById(data)
     }
 

@@ -1,5 +1,5 @@
 import { useContext, createContext, FC, ReactNode, useState } from 'react';
-import { getMoviesByEmail, getAllUsers } from '../api';
+import { getMoviesById, getAllUsers } from '../api';
 import { GetTokenSilentlyVerboseResponse } from '@auth0/auth0-spa-js';
 
 
@@ -43,9 +43,9 @@ export const UserProvider: FC<UserItemsProps> = ({ children }) => {
 
 
 
-    const fetchUserMovies = async (url: string, email: string, getToken: () => Promise<GetTokenSilentlyVerboseResponse | undefined>) => {
+    const fetchUserMovies = async (url: string, id: string, getToken: () => Promise<GetTokenSilentlyVerboseResponse | undefined>) => {
         try {
-            const response = getMoviesByEmail(`${url}/users/${email}`, getToken);
+            const response = getMoviesById(`${url}/users/${id}`, getToken);
             const data = await response;
             console.log(data)
             setUserId(data.id)

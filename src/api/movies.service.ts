@@ -31,7 +31,7 @@ export const deleteMovie = async (url: string, getToken: any) => {
   }
 };
 
-export const getMoviesByEmail = async (url: string, getToken: any) => {
+export const getMoviesById = async (url: string, getToken: any) => {
   try {
     const token = await getToken();
     const moviesID = await fetch(url, {
@@ -81,6 +81,7 @@ export const updateMovie = async (
     formData.append("title", data.title);
     formData.append("score", data.score);
     formData.append("year", data.year);
+    formData.append("genres", data.genres);
 
     await fetch(url, {
       method: "PUT",
