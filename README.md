@@ -4,17 +4,17 @@
 
 ### We developed the project using the following technologies. :open_file_folder:
 
-:arrow_right: HTML :rocket:
-:arrow_right: TAILWINDCSS :art:
-:arrow_right: JAVASCRIPT :rocket:
-:arrow_right: TYPESCRIPT :rocket:
-:arrow_right: REACT JS :rocket:
-:arrow_right: NODE JS :brain:
-:arrow_right: EXPRESS JS :brain:
-:arrow_right: MOONGOSE :floppy_disk:
-:arrow_right: PRISMA :floppy_disk:
-:arrow_right: MONGO DB :floppy_disk:
-:arrow_right: POSTGRESQL :floppy_disk:
+:rocket: HTML 
+:art: TAILWINDCSS 
+:rocket: JAVASCRIPT 
+:rocket: TYPESCRIPT 
+:rocket: REACT JS 
+:brain: NODE JS 
+:brain: EXPRESS JS 
+:floppy_disk: MOONGOSE 
+:floppy_disk: PRISMA 
+:floppy_disk: MONGO DB 
+:floppy_disk: POSTGRESQL 
 
 ### Libraries installed
 ## VITE 
@@ -54,11 +54,11 @@ layers to your ./src/index.css file.
 "@tailwind utilities;"
 
 ## Backend
-1) npm i -D typescript nodemon @ types/node rimraf express @types/express dotenv ts-node
-2) npm i morgan npm i --save-dev @types/morgan
-3) npm i mongoose @types/mongoose
-4) npm install prisma --save-dev
-    # Inicializar Prisma : npx prisma init
+1) ```npm i -D typescript nodemon @ types/node rimraf express @types/express dotenv ts-node```
+2) ```npm i morgan npm i --save-dev @types/morgan```
+3) ```npm i mongoose @types/mongoose```
+4) ```npm install prisma --save-dev```
+    # Inicializar Prisma : ```npx prisma init```
 
 ## Initialize project and start up server in frontend and backend
 ```npm run dev```:globe_with_meridians:
