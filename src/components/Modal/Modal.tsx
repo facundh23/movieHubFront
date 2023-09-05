@@ -1,20 +1,24 @@
 /* eslint-disable @typescript-eslint/ban-types */
-import { FC, ReactNode, ChangeEvent, useEffect, useState } from 'react';
+import { FC, ReactNode, ChangeEvent } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { useForm } from 'react-hook-form';
-import { createMovie, getAllMovies, getMoviesByEmail } from '../../api/request.service';
-import Swal from 'sweetalert2'
+import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { useGenres } from '../../context/GenresProvider';
+import { createMovie } from '../../api';
 
-interface ModalProps {
+import Swal from 'sweetalert2'
+
+interface MovieProps {
     genres: string[]
     title: string
-    year: number
-    score: number
-    file?: File | null
-    children: ReactNode
+    year: string
+    score: string
+    file?: File
+    poster_image: string
+    onSubmit?: SubmitHandler<FieldValues>
 }
+
+
 
 type GenreItemsProps = {
     id: string | undefined,
@@ -26,7 +30,8 @@ type GenreItemsProps = {
 }
 
 
-const Modal: FC<ModalProps> = () => {
+
+const Modal: FC<MovieProps> = () => {
     const { register, handleSubmit, formState: { errors }, reset, setValue } = useForm();
 
     const { isAuthenticated, getAccessTokenSilently } = useAuth0();
@@ -39,7 +44,8 @@ const Modal: FC<ModalProps> = () => {
 
 
 
-    const onSubmit = async (data: object): Promise<void> => {
+    const onSubmit = async (data: MovieProps) => {
+        console.log(data)
 
         createMovie(movieUrl, data, getAccessTokenSilently)
         const Toast = Swal.mixin({
@@ -59,8 +65,11 @@ const Modal: FC<ModalProps> = () => {
             title: 'Upload in successfully'
         })
 
-        navigate(`/home`)
-        reset();
+        setTimeout(() => {
+            navigate(`/home`)
+            reset();
+        }, 3000)
+
     }
 
 

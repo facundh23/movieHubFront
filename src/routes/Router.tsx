@@ -1,4 +1,4 @@
-import { Suspense, lazy } from 'react'
+import { Suspense, lazy } from 'react';
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Layout from "../components/Layout/Layout";
 import LoginPage from "../pages/Login/LoginPage";
@@ -7,12 +7,15 @@ import HomeSkeleton from '../assets/skeleton/homeSkeleton.tsx';
 import Modal from '../components/Modal/Modal.tsx';
 import EditMoviePage from '../pages/Movie/EditMoviePage.tsx';
 
+import { useAuth0 } from '@auth0/auth0-react';
+import { ProtectedRoute } from '../components/utils/ProtectedRoute.tsx';
+
 
 
 const LazyHomePage = lazy(() => import("../pages/Home/HomePage.tsx"))
 
 const Router = () => {
-
+    const { user } = useAuth0()
 
     return (
         <BrowserRouter>
@@ -30,14 +33,19 @@ const Router = () => {
                     }
                     />
                     <Route path="/home/movies/movie/:movieId" element={
-                        <MovieDetailsPage />
+                        <ProtectedRoute user={user}>
+                            <MovieDetailsPage />
+                        </ProtectedRoute>
                     } />
                     <Route path="/home/movies/edit/:movieId" element={
-                        <EditMoviePage />
+                        <ProtectedRoute user={user}>
+                            <EditMoviePage />
+                        </ProtectedRoute>
                     } />
 
                     <Route path="/home/movies/:userId" element={
-                        <Modal genres={[]} title={''} year={0} score={0} children={undefined} />
+                        <Modal genres={[]} title={''} year={'0'} score={'0'} poster_image={''}
+                        />
                     }
                     />
 

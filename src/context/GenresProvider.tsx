@@ -4,23 +4,24 @@ import { getGenres } from '../api/request.service';
 
 type GenreItemsProps = {
     map(arg0: ({ id, name }: { id: string | undefined; name: string | undefined; createdAt: string | undefined; updatedAt: string | undefined; moviesId: string | undefined; }) => import("react/jsx-runtime").JSX.Element): ReactNode;
-    id?: string | undefined,
-    name?: string | undefined,
-    createdAt?: string | undefined,
-    updatedAt?: string | undefined,
-    moviesId?: string | undefined,
+    id: string,
+    name: string,
+    createdAt: string,
+    updatedAt: string,
+    moviesId: string,
 }
 
 
 type GenreProps = {
-    genres?: GenreItemsProps | undefined,
-    setGenres?: React.Dispatch<React.SetStateAction<GenreProps[] | undefined>>
+    genres?: GenreItemsProps[],
+    setGenres?: React.Dispatch<React.SetStateAction<GenreItemsProps[]>>
     children?: ReactNode
+    fetchGenres?: () => Promise<void>
 }
 export const GenreContext = createContext<GenreProps>({} as GenreProps);
 
 export const GenresProvider: FC<GenreProps> = ({ children }) => {
-    const [genres, setGenres] = useState<GenreProps[] | undefined>([] || undefined);
+    const [genres, setGenres] = useState<GenreItemsProps[]>([]);
     const { VITE_API_URL: url } = import.meta.env
     useEffect(() => {
         const fetchGenres = async () => {

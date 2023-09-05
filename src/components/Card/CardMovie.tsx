@@ -1,6 +1,7 @@
-import { FC, ReactNode } from 'react';
+import { FC, ReactNode, useEffect } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
+import { useMovies } from '../../context/MovieProvider';
 
 
 type CardProps = {
@@ -22,8 +23,14 @@ type genreProps = {
 const CardMovie: FC<CardProps> = ({ ...props }) => {
 
   const { title, year, genres, score, poster_image, id } = props;
+  const { fetchMovies } = useMovies();
   const { isAuthenticated } = useAuth0();
-  const { VITE_API_URL: url } = import.meta.env
+
+  useEffect(() => {
+    fetchMovies()
+  }, [])
+
+
   const stars = (data: ReactNode) => {
     switch (data) {
       case 1:
@@ -47,8 +54,9 @@ const CardMovie: FC<CardProps> = ({ ...props }) => {
 
   const scoreStar = stars(score);
 
+
   return (
-    <Link to={`/home/movies/movie/${id}`} ><div className='p-2 border-2 border-r-violet-400 border-y-black'>
+    <NavLink to={`/home/movies/movie/${id}`} ><div className='p-2 border-2 border-r-violet-400 border-y-black'>
       <section className="w-[80%] h-400 mx-auto flex flex-col gap-5 items-center  justify-center">
 
 
@@ -65,17 +73,17 @@ const CardMovie: FC<CardProps> = ({ ...props }) => {
         </div>
         <p> Released: {year} </p>
         <img id="img"
-          className="h-[60%] w-[60%]  object-cover" src={poster_image} />
+          className=" w-[70%] object-cover" src={poster_image} />
 
 
-        {isAuthenticated ? <Link to={`/home/movies/edit/${id}`} className='bg-blue-400 p-2  w-[100%] text-center rounded-md'>Edit</Link> : <Link to="/" className='bg-violet-400 p-2'>Please Log in</Link>}
+        {isAuthenticated ? <p className='bg-blue-400 p-2  w-[100%] text-center rounded-md'><Link to={`/home/movies/edit/${id}`} className='bg-blue-400 p-2  w-[100%] text-center rounded-md'>Edit</Link></p> : <p className='bg-violet-400 p-2'><Link to="/" className='bg-violet-400 p-2'>Please Log in</Link></p>}
 
         {
-          <p key={score}>{scoreStar}</p>
+          <span key={score}>{scoreStar}</span>
         }
       </section>
     </div>
-    </Link>
+    </NavLink>
   )
 }
 

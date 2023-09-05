@@ -29,7 +29,7 @@ type GenreItemsProps = {
 
 const EditModal: FC<ModalProps> = () => {
 
-    const { movies } = useMovies()
+    const { movies, handleUpdateMovie } = useMovies()
     const { movieId } = useParams();
     const selectedMovie = movieId ? movies?.find((movie: { id: string; }) => movie.id === movieId) : undefined;
     const { isAuthenticated, getAccessTokenSilently } = useAuth0();
@@ -45,7 +45,7 @@ const EditModal: FC<ModalProps> = () => {
     });
     const { VITE_API_URL: url } = import.meta.env
 
-    const editMovie = `${url}/home/movies/edit/${movieId}`
+
     const { genres } = useGenres();
 
     if (!selectedMovie) return
@@ -53,7 +53,7 @@ const EditModal: FC<ModalProps> = () => {
 
     const onSubmit = async (data: object): Promise<void> => {
 
-        updateMovie(editMovie, data, getAccessTokenSilently)
+        handleUpdateMovie(`${url}/home/movies/edit/${movieId}`, data, getAccessTokenSilently)
         const Toast = Swal.mixin({
             toast: true,
             position: 'top-end',
@@ -71,8 +71,10 @@ const EditModal: FC<ModalProps> = () => {
             title: 'Upload in successfully'
         })
 
-        navigate(`/home`)
-        reset();
+        setTimeout(() => {
+            navigate(`/home`)
+            reset();
+        }, 3000)
     }
 
 

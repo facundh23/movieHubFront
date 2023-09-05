@@ -1,20 +1,17 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
-import CardList from "../CardList/CardList"
-import { postUser, getUserId } from '../../api/request.service';
-import Spinner from "../utils/Spinner/Spiner";
-import { Link } from "react-router-dom";
-
 import { useUser } from '../../context/UserProvider';
+import { Link } from "react-router-dom";
+import { postUser } from '../../api';
+import CardList from "../CardList/CardList"
+import Spinner from "../utils/Spinner/Spiner";
 
 
 const Home = () => {
-  const { user: userContext } = useUser();
 
-  const [userId, setUserId] = useState(userContext);
   const { isLoading, getAccessTokenSilently, user } = useAuth0();
+  const { userId } = useUser();
 
-  const currentUser = user?.email;
 
   const { VITE_API_URL: url } = import.meta.env
 
@@ -27,17 +24,6 @@ const Home = () => {
       }
     }
   }, [getAccessTokenSilently, user, url])
-
-
-  useEffect(() => {
-    const fetchUserId = async () => {
-      const response = await getUserId(userContext, currentUser);
-      setUserId(response)
-    }
-    fetchUserId()
-  }, [url, currentUser])
-
-
 
 
   return (

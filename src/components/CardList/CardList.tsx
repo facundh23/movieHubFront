@@ -1,9 +1,11 @@
 
-import { FC, useEffect, useState, ReactNode } from 'react';
+import { FC, useEffect, ReactNode } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
 import { Link } from 'react-router-dom';
 import CardMovie from '../Card/CardMovie';
-import { getMoviesByEmail } from '../../api/request.service';
+import { useUser } from '../../context/UserProvider';
+
+
 
 
 type CardProps = {
@@ -15,6 +17,9 @@ type CardProps = {
   genres: genreType[]
 }
 
+
+
+
 type genreType = {
   id: string,
   name: string
@@ -24,20 +29,14 @@ type genreType = {
 
 const CardList: FC<CardProps> = () => {
   const { isAuthenticated, user, getAccessTokenSilently } = useAuth0();
-  const [movies, setMovies] = useState();
   const { VITE_API_URL: url } = import.meta.env
+  const { moviesUser, fetchUserMovies } = useUser()
 
-  const emailUser = user?.email;
+  const emailUser: string | undefined = user?.email;
 
   useEffect(() => {
-    const fetchUserMovies = async () => {
-      const response = getMoviesByEmail(`${url}/users/${emailUser}`, getAccessTokenSilently);
-      const data = await response;
-      setMovies(data.movies)
-    }
-    fetchUserMovies()
-  }, [url, getAccessTokenSilently, emailUser, movies])
-
+    fetchUserMovies(url, emailUser, getAccessTokenSilently);
+  }, [url, getAccessTokenSilently, emailUser])
 
 
   return (
@@ -49,12 +48,13 @@ const CardList: FC<CardProps> = () => {
 
           isAuthenticated ?
             (
-              movies?.map((movie: CardProps) => (
+              moviesUser?.map((movie: CardProps) => (
                 (<CardMovie key={movie.id} {...movie} />)
               ))
             )
 
             :
+
             <Link className='bg-violet-400 text-center p-4 rounded-md' to="/">Log in</Link>
 
         }
