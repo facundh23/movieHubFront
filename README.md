@@ -1,4 +1,4 @@
-# First React - TS Individual Project Assembler :computer:
+# First Backend - TS Individual Project Assembler :computer:
 
 ## This is the first indivual project that we had to develop in the React Module at Assembler Institute of Technology.:zap:
 
